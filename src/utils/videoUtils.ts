@@ -34,6 +34,23 @@ export const filterVideosByCategory = async (
   return videos.filter((video) => video.category === category)
 }
 
+export const filterVideosByCategoryWithSlothDelay = async (
+  category: string
+): Promise<Video[]> => {
+  const videos = await getVideos()
+
+  if (category === 'all') {
+    return videos
+  }
+
+  // Add extra delay for sloths category to make it load slowly
+  if (category === 'sloths') {
+    await new Promise((resolve) => setTimeout(resolve, 3500)) // 3.5 second delay
+  }
+
+  return videos.filter((video) => video.category === category)
+}
+
 export const getFavoritesFromStorage = (): string[] => {
   if (typeof window === 'undefined') return []
 
