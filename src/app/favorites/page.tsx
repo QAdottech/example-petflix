@@ -53,7 +53,7 @@ export default function FavoritesPage() {
                 Your Favorite Videos ❤️
               </h1>
               <p className="text-lg text-gray-600">
-                Videos you've loved and saved for later
+                Videos you&apos;ve loved and saved for later
               </p>
             </div>
 
