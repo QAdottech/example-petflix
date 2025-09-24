@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Video } from '@/types/video'
 import {
@@ -12,7 +12,7 @@ import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
 import VideoCard from '@/components/VideoCard'
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams()
   const [videos, setVideos] = useState<Video[]>([])
   const [loading, setLoading] = useState(true)
@@ -160,5 +160,36 @@ export default function SearchPage() {
         </main>
       </div>
     </div>
+  )
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50">
+          <div className="animate-pulse">
+            <div className="h-16 bg-gray-200"></div>
+            <div className="flex">
+              <div className="w-64 h-screen bg-gray-200"></div>
+              <main className="flex-1 p-6">
+                <div className="h-8 bg-gray-200 rounded w-64 mb-6"></div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {[...Array(8)].map((_, i) => (
+                    <div key={i} className="space-y-3">
+                      <div className="aspect-video bg-gray-200 rounded-lg"></div>
+                      <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                      <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                    </div>
+                  ))}
+                </div>
+              </main>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <SearchContent />
+    </Suspense>
   )
 }

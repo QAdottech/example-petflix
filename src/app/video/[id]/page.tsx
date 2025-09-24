@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, Heart, Play, Clock, Eye, Calendar } from 'lucide-react'
 import { Video } from '@/types/video'
 import {
@@ -88,7 +89,7 @@ export default function VideoPage() {
                 Video Not Found
               </h1>
               <p className="text-gray-600 mb-6">
-                The video you're looking for doesn't exist.
+                The video you&apos;re looking for doesn&apos;t exist.
               </p>
               <Link
                 href="/"
@@ -123,9 +124,11 @@ export default function VideoPage() {
             {/* Video Player Area */}
             <div className="relative mb-6">
               <div className="aspect-video bg-black rounded-lg overflow-hidden relative">
-                <img
+                <Image
                   src={video.thumbnail}
                   alt={video.title}
+                  width={800}
+                  height={450}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
