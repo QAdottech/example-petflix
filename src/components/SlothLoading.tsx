@@ -42,7 +42,7 @@ export default function SlothLoading({
     }, 2000)
 
     return () => clearInterval(messageInterval)
-  }, [])
+  }, [messages.length])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
@@ -115,8 +115,8 @@ export default function SlothLoading({
           {/* Fun Facts */}
           <div className="mt-8 text-sm text-gray-500 max-w-md mx-auto">
             <p className="italic">
-              "Did you know? Sloths move so slowly that algae grows on their
-              fur, giving them a greenish tint!"
+              &ldquo;Did you know? Sloths move so slowly that algae grows on
+              their fur, giving them a greenish tint!&rdquo;
             </p>
           </div>
         </div>
