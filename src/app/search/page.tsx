@@ -74,6 +74,8 @@ function SearchContent() {
     { id: 'birds', label: 'Birds', emoji: '🐦' },
     { id: 'hamsters', label: 'Hamsters', emoji: '🐹' },
     { id: 'rabbits', label: 'Rabbits', emoji: '🐰' },
+    { id: 'frogs', label: 'Frogs', emoji: '🐸' },
+    { id: 'reptiles', label: 'Reptiles', emoji: '🦎' },
   ]
 
   return (
