@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Home, Search, Heart, Play } from 'lucide-react'
+import Image from 'next/image'
+import { Heart, Play } from 'lucide-react'
 import { Video } from '@/types/video'
 import {
   addToFavorites,
@@ -40,11 +41,13 @@ export default function VideoCard({ video, onToggleFavorite }: VideoCardProps) {
   }
 
   return (
-    <div className="group cursor-pointer">
+    <Link href={`/video/${video.id}`} className="group cursor-pointer block">
       <div className="relative">
-        <img
+        <Image
           src={video.thumbnail}
           alt={video.title}
+          width={400}
+          height={225}
           className="w-full aspect-video object-cover rounded-lg group-hover:rounded-none transition-all duration-200"
         />
         <div className="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-1.5 py-0.5 rounded">
@@ -76,6 +79,6 @@ export default function VideoCard({ video, onToggleFavorite }: VideoCardProps) {
           <span>{video.uploadTime}</span>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
