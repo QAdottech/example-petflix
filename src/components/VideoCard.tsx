@@ -42,20 +42,20 @@ export default function VideoCard({ video, onToggleFavorite }: VideoCardProps) {
 
   return (
     <Link href={`/video/${video.id}`} className="group cursor-pointer block">
-      <div className="relative">
+      <div className="relative aspect-video">
         <Image
           src={video.thumbnail}
           alt={video.title}
-          width={400}
-          height={225}
-          className="w-full aspect-video object-cover rounded-lg group-hover:rounded-none transition-all duration-200"
+          fill
+          className="object-cover rounded-lg group-hover:rounded-none transition-all duration-200"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
         />
-        <div className="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-1.5 py-0.5 rounded">
+        <div className="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-1.5 py-0.5 rounded z-10">
           {video.duration}
         </div>
         <button
           onClick={handleToggleFavorite}
-          className={`absolute top-2 right-2 p-2 rounded-full transition-all duration-200 ${
+          className={`absolute top-2 right-2 p-2 rounded-full transition-all duration-200 z-10 ${
             favorited
               ? 'bg-red-500 text-white'
               : 'bg-black bg-opacity-50 text-white hover:bg-opacity-70'
@@ -63,8 +63,8 @@ export default function VideoCard({ video, onToggleFavorite }: VideoCardProps) {
         >
           <Heart className={`h-4 w-4 ${favorited ? 'fill-current' : ''}`} />
         </button>
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200 flex items-center justify-center">
-          <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-all duration-200" />
+        <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+          <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-all duration-200 drop-shadow-lg" />
         </div>
       </div>
 

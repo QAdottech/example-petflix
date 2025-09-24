@@ -127,12 +127,12 @@ export default function VideoPage() {
                 <Image
                   src={video.thumbnail}
                   alt={video.title}
-                  width={800}
-                  height={450}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                  <button className="bg-red-600 hover:bg-red-700 text-white rounded-full p-4 transition-colors">
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <button className="bg-red-600 hover:bg-red-700 text-white rounded-full p-4 transition-colors drop-shadow-lg">
                     <Play className="h-8 w-8" />
                   </button>
                 </div>

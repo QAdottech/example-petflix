@@ -22,6 +22,7 @@ export const categories = [
   'birds',
   'hamsters',
   'rabbits',
+  'sloths',
 ] as const
 
 export type Category = (typeof categories)[number]

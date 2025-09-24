@@ -6,11 +6,13 @@ import { Video } from '@/types/video'
 import {
   searchVideos,
   filterVideosByCategory,
+  filterVideosByCategoryWithSlothDelay,
   getVideos,
 } from '@/utils/videoUtils'
 import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
 import VideoCard from '@/components/VideoCard'
+import SlothLoading from '@/components/SlothLoading'
 
 function SearchContent() {
   const searchParams = useSearchParams()
@@ -34,7 +36,12 @@ function SearchContent() {
         if (query) {
           results = await searchVideos(query)
         } else if (category !== 'all') {
-          results = await filterVideosByCategory(category)
+          // Use slow loading for sloths category
+          if (category === 'sloths') {
+            results = await filterVideosByCategoryWithSlothDelay(category)
+          } else {
+            results = await filterVideosByCategory(category)
+          }
         } else {
           results = await getVideos()
         }
@@ -74,6 +81,7 @@ function SearchContent() {
     { id: 'birds', label: 'Birds', emoji: '🐦' },
     { id: 'hamsters', label: 'Hamsters', emoji: '🐹' },
     { id: 'rabbits', label: 'Rabbits', emoji: '🐰' },
+    { id: 'sloths', label: 'Sloths', emoji: '🦥' },
     { id: 'frogs', label: 'Frogs', emoji: '🐸' },
     { id: 'reptiles', label: 'Reptiles', emoji: '🦎' },
   ]
@@ -112,17 +120,21 @@ function SearchContent() {
             </div>
 
             {loading ? (
-              <div className="animate-pulse">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {[...Array(8)].map((_, i) => (
-                    <div key={i} className="space-y-3">
-                      <div className="aspect-video bg-gray-200 rounded-lg"></div>
-                      <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                      <div className="h-3 bg-gray-200 rounded w-1/2"></div>
-                    </div>
-                  ))}
+              selectedCategory === 'sloths' ? (
+                <SlothLoading message="Loading sloth videos..." />
+              ) : (
+                <div className="animate-pulse">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {[...Array(8)].map((_, i) => (
+                      <div key={i} className="space-y-3">
+                        <div className="aspect-video bg-gray-200 rounded-lg"></div>
+                        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                        <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )
             ) : (
               <>
                 <div className="mb-4">
