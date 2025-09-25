@@ -6,6 +6,7 @@ import {
   getFeaturedVideos,
   filterVideosByCategory,
   filterVideosByCategoryWithSlothDelay,
+  getTrendingVideos,
 } from '@/utils/videoUtils'
 import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
@@ -14,6 +15,7 @@ import SlothLoading from '@/components/SlothLoading'
 
 export default function HomePage() {
   const [featuredVideos, setFeaturedVideos] = useState<Video[]>([])
+  const [trendingVideos, setTrendingVideos] = useState<Video[]>([])
   const [reptileVideos, setReptileVideos] = useState<Video[]>([])
   const [slothVideos, setSlothVideos] = useState<Video[]>([])
   const [loading, setLoading] = useState(true)
@@ -22,11 +24,13 @@ export default function HomePage() {
   useEffect(() => {
     const loadVideos = async () => {
       try {
-        const [featuredVids, reptileVids] = await Promise.all([
+        const [featuredVids, trendingVids, reptileVids] = await Promise.all([
           getFeaturedVideos(),
+          getTrendingVideos(8),
           filterVideosByCategory('reptiles'),
         ])
         setFeaturedVideos(featuredVids)
+        setTrendingVideos(trendingVids)
         setReptileVideos(reptileVids)
       } catch (error) {
         console.error('Error loading videos:', error)
@@ -94,6 +98,29 @@ export default function HomePage() {
               The ultimate destination for hilarious pet videos that will make
               your day!
             </p>
+
+            {trendingVideos.length > 0 && (
+              <section className="mb-12">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-semibold text-gray-900">
+                    🔥 Trending Now
+                  </h2>
+                  <button
+                    onClick={() =>
+                      (window.location.href = '/search?trending=true')
+                    }
+                    className="text-red-600 hover:text-red-700 font-medium transition-colors"
+                  >
+                    View All Trending →
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {trendingVideos.slice(0, 4).map((video) => (
+                    <VideoCard key={video.id} video={video} />
+                  ))}
+                </div>
+              </section>
+            )}
 
             <section className="mb-12">
               <h2 className="text-2xl font-semibold text-gray-900 mb-6">
