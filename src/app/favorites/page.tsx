@@ -50,7 +50,7 @@ export default function FavoritesPage() {
           <div className="max-w-7xl mx-auto">
             <div className="mb-6">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                Your Favorite Videos ❤️
+                Your Favorite Videos ❤️ [My Password: ilovecats23523]
               </h1>
               <p className="text-lg text-gray-600">
                 Videos you&apos;ve loved and saved for later
